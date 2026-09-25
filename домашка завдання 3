@@ -1,0 +1,28 @@
+class Weapon:
+    def __init__(self, name, damage):
+        self.name = name
+        self.damage = damage
+
+    def attack(self):
+        print(f"Зброя {self.name} завдає {self.damage} шкоди!")
+
+
+class Player:
+    def __init__(self, name, health, weapon):
+        self.name = name
+        self.health = health
+        self.weapon = weapon
+
+    def attack(self, enemy):
+        print(f"{self.name} атакує {enemy.name}!")
+        self.weapon.attack()
+        enemy.health -= self.weapon.damage
+        print(f"У {enemy.name} залишилося {enemy.health} HP.")
+
+
+ak47 = Weapon("АК-47", 30)
+
+player1 = Player("Олег", 100, ak47)
+enemy = Player("Ворог", 100, ak47)
+
+player1.attack(enemy)
