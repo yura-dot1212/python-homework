@@ -1,0 +1,42 @@
+class Player:
+    def __init__(self, name):
+        self.name = name
+
+    def play(self):
+        print(f"{self.name} грає в CS2")
+
+
+class Sniper:
+    def __init__(self):
+        self.weapon = "AWP"
+
+    def shoot(self):
+        print(f"Гравець стріляє з {self.weapon}")
+
+
+class Leader:
+    def __init__(self):
+        self.team = "Babuin Clan"
+
+    def command(self):
+        print(f"Гравець керує командою {self.team}")
+
+
+class EsportsPlayer(Player, Sniper, Leader):
+    def __init__(self, name):
+        Player.__init__(self, name)
+        Sniper.__init__(self)
+        Leader.__init__(self)
+
+    def information(self):
+        print(f"Ім'я: {self.name}")
+        print(f"Зброя: {self.weapon}")
+        print(f"Команда: {self.team}")
+
+
+player = EsportsPlayer("Олег")
+
+player.play()
+player.shoot()
+player.command()
+player.information()
