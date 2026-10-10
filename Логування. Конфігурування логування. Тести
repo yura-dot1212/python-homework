@@ -1,0 +1,12 @@
+import logging
+
+logging.basicConfig(level=logging.ERROR)
+
+try:
+    a = int(input("Введіть перше число: "))
+    b = int(input("Введіть друге число: "))
+    result = a / b
+    print("Результат:", result)
+
+except Exception as e:
+    logging.error("Виникла помилка: %s", e)
