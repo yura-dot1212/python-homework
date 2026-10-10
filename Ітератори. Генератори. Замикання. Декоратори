@@ -1,0 +1,20 @@
+
+class PowerOfTwo:
+    def __init__(self, n):
+        self.n = n
+        self.power = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.power >= self.n:
+            raise StopIteration
+
+        result = 2 ** self.power
+        self.power += 1
+        return result
+
+
+for number in PowerOfTwo(10):
+    print(number)
