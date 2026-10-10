@@ -1,0 +1,5 @@
+try:
+    number = int(input("Введіть число: "))
+    print(number)
+except ValueError:
+    print("Помилка! Введіть ціле число.")
