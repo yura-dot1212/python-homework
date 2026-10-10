@@ -1,0 +1,30 @@
+import colorama
+import inspect
+
+# Ініціалізація бібліотеки
+colorama.init()
+
+# Інтроспекція модуля
+print("Назва модуля:", colorama.__name__)
+print("Шлях до модуля:", colorama.__file__)
+print("Документація:", colorama.__doc__)
+
+# Виведення основних атрибутів
+print("основні атрибути та методи:")
+
+for name, obj in inspect.getmembers(colorama):
+    if not name.startswith("_"):
+        print(name, "—", type(obj).__name__)
+
+# Використання важливих класів
+from colorama import Fore, Back, Style
+
+print("Приклади роботи:")
+
+print(Fore.RED + "Цей текст червоний")
+print(Fore.GREEN + "Цей текст зелений")
+print(Back.YELLOW + "Цей текст має жовтий фон")
+print(Style.BRIGHT + "Цей текст яскравий")
+
+# Повернення стандартного оформлення
+print(Style.RESET_ALL + "Звичайний текст")
