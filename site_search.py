@@ -1,12 +1,3 @@
-"""
-Фінальний проєкт: пошук введеного тексту на сторінках, посилання на які
-зберігаються в БД. Чим частіше текст трапляється на сторінці, тим вище
-сайт у списку результатів.
-
-Залежності:  pip install requests beautifulsoup4
-Архітектура: Database (SQLite) + SiteParser (requests/bs4) + UserInterface (tkinter)
-"""
-
 import re
 import sqlite3
 import threading
@@ -19,10 +10,6 @@ from urllib.parse import urlparse
 import requests
 from bs4 import BeautifulSoup
 
-
-# ----------------------------------------------------------------------------
-# 1. Об'єкт, що працює з базою даних
-# ----------------------------------------------------------------------------
 class Database:
     def __init__(self, path="sites.db"):
         self.connection = sqlite3.connect(path)
@@ -73,10 +60,6 @@ class Database:
     def close(self):
         self.connection.close()
 
-
-# ----------------------------------------------------------------------------
-# 2. Об'єкт, що парсить сайти
-# ----------------------------------------------------------------------------
 class SiteParser:
     HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; StudentSearchBot/1.0)"}
 
@@ -115,10 +98,6 @@ class SiteParser:
             results = list(pool.map(lambda u: self.check_site(u, query), urls))
         return sorted(results, key=lambda item: item[1], reverse=True)
 
-
-# ----------------------------------------------------------------------------
-# 3. Об'єкт інтерфейсу користувача
-# ----------------------------------------------------------------------------
 class UserInterface:
     def __init__(self, database, parser):
         self.db = database
@@ -131,7 +110,6 @@ class UserInterface:
         self._build_widgets()
         self.refresh_sites()
 
-    # --- побудова вікна ------------------------------------------------------
     def _build_widgets(self):
         notebook = ttk.Notebook(self.root)
         notebook.pack(fill="both", expand=True, padx=8, pady=8)
@@ -141,7 +119,6 @@ class UserInterface:
         notebook.add(self.search_tab, text="Пошук")
         notebook.add(self.sites_tab, text="Список сайтів")
 
-        # вкладка «Пошук»
         top = ttk.Frame(self.search_tab)
         top.pack(fill="x", pady=8)
         self.query_var = tk.StringVar()
@@ -193,7 +170,6 @@ class UserInterface:
         )
         ttk.Button(buttons, text="Очистити БД", command=self.clear_db).pack(side="right")
 
-    # --- робота зі списком сайтів ---------------------------------------------
     def refresh_sites(self):
         self.sites_list.delete(0, "end")
         for url in self.db.get_sites():
@@ -294,10 +270,6 @@ class UserInterface:
     def mainloop(self):
         self.root.mainloop()
 
-
-# ----------------------------------------------------------------------------
-# Точка входу
-# ----------------------------------------------------------------------------
 def run():
     database = Database()
     parser = SiteParser()
